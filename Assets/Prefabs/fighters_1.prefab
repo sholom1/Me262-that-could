@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 4296751094011262218}
   - component: {fileID: 6084798096437798806}
   - component: {fileID: 4697747129587815945}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: fighters_1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -323,7 +323,9 @@ MonoBehaviour:
   _MaxThrustForce: 10
   ExplosionFX: {fileID: 8861818754953177003, guid: 738198b99eeda1a48aab3e9f09142481, type: 3}
   ExplosionSound: {fileID: 8300000, guid: 61430389c394d034e96416667b6cd8dc, type: 3}
-  _StoppingDistance: 100
+  _StoppingDistance: 20
+  RotationSpeed: 60
+  log: 0
 --- !u!114 &6084798096437798806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   CurrentHealth: 0
+  destroy: 0
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -361,4 +364,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
