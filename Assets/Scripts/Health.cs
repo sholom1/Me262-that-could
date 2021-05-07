@@ -9,6 +9,8 @@ public class Health : MonoBehaviour
     private int MaxHealth;
     [SerializeField]
     private int CurrentHealth;
+    [SerializeField]
+    private bool destroy;
     public UnityEvent OnDeath;
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,15 @@ public class Health : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             OnDeath.Invoke();
-            Destroy(gameObject);
+            if (destroy)
+                Destroy(gameObject);
+            else
+                gameObject.SetActive(false);
         }
+    }
+    public void Respawn()
+    {
+        CurrentHealth = MaxHealth;
+        OnDeath.RemoveAllListeners();
     }
 }

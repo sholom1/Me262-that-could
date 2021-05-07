@@ -18,9 +18,9 @@ public class PlayerPlaneController : PlaneController
 
     private PlayerInput.PlayerActions input;
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
+        onObjectSpawn();
         input = new PlayerInput().Player;
         input.Enable();
     }

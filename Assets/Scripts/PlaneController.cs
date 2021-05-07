@@ -16,12 +16,14 @@ public class PlaneController : GridObject
     private AudioClip ExplosionSound;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    public virtual void onObjectSpawn()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
-        health.OnDeath.AddListener(SpawnExplosion);
+        health.Respawn();
         addToGrid();
+        health.OnDeath.AddListener(SpawnExplosion);
+        health.OnDeath.AddListener(removeFromGrid);
     }
 
     // Update is called once per frame
