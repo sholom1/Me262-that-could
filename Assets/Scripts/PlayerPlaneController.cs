@@ -20,7 +20,7 @@ public class PlayerPlaneController : PlaneController
 
     protected void Start()
     {
-        onObjectSpawn();
+        OnObjectSpawn();
         input = new PlayerInput().Player;
         input.Enable();
     }

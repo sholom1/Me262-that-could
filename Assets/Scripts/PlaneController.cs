@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaneController : GridObject
+public class PlaneController : GridObject, IPooledObject
 {
     public new Rigidbody2D rigidbody;
     public Health health;
@@ -16,7 +16,7 @@ public class PlaneController : GridObject
     private AudioClip ExplosionSound;
 
     // Start is called before the first frame update
-    public virtual void onObjectSpawn()
+    public virtual void OnObjectSpawn()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
@@ -48,7 +48,7 @@ public class PlaneController : GridObject
     }
     private void SpawnExplosion()
     {
-        Instantiate(ExplosionFX, transform.position, Quaternion.identity);
+        EffectsManager.instance.SpawnEffectAtPosition(transform.position, "Explosion");
         AudioSource.PlayClipAtPoint(ExplosionSound, new Vector3(transform.position.x, transform.position.y, 10));
     }
     private void OnDestroy()

@@ -8,16 +8,21 @@ public class Bullet : MonoBehaviour
     public string targetTag;
     [SerializeField]
     private float minBulletLiftime = 1;
+    private float lifeTime;
     [SerializeField]
     private int damage;
     [SerializeField]
     private GameObject DebrisParticles;
 
+    private void OnEnable()
+    {
+        lifeTime = 0;
+    }
     private void FixedUpdate()
     {
-        if (minBulletLiftime < 0.01f && rigidbody.velocity.sqrMagnitude < 100)
-            Destroy(gameObject);
-        minBulletLiftime -= Time.fixedDeltaTime;
+        if (lifeTime >= minBulletLiftime && rigidbody.velocity.sqrMagnitude < 100)
+            gameObject.SetActive(false);
+        lifeTime += Time.fixedDeltaTime;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,8 +30,8 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log($"Damaged {health.gameObject.name}");
             health.Damage(damage);
-            Instantiate(DebrisParticles, transform.position, Quaternion.identity);
-            Destroy(gameObject, .1f);
+            EffectsManager.instance.SpawnEffectAtPosition(transform.position, "HitImpact");
+            gameObject.SetActive(false);
         }
     }
 }

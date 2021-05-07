@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 1884455244}
   m_Layer: 0
   m_Name: Me-262
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +199,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _BulletPrefab: {fileID: -7740159756175003801, guid: 5b29093d3e3ad8c4eaef88f28e937582, type: 3}
   _Force: 500
-  _Cooldown: 0.1
+  _Cooldown: 0.5
   _GunShot: {fileID: 8300000, guid: e908a9fafe49d404fb50ec447c417c6a, type: 3}
   _Barrels:
   - Muzzle: {fileID: 1319008189}
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f3c448c44c7204b8b05301cbf9207b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 1000
   CurrentHealth: 0
   destroy: 0
   OnDeath:

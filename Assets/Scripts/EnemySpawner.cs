@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private Queue<EnemyPlaneController> EnemyPool;
     [SerializeField]
     private int MaxEnemies;
     [SerializeField]
@@ -18,22 +17,19 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EnemyPool = new Queue<EnemyPlaneController>(MaxEnemies);
-        for(int i = 0; i < MaxEnemies; i++)
-        {
-            var pooledEnemy = Instantiate(prefab, transform);
-            pooledEnemy.gameObject.SetActive(false);
-            EnemyPool.Enqueue(pooledEnemy);
-        }
+        ObjectPooler.instance.GeneratePool(nameof(EnemyPlaneController), prefab.gameObject, MaxEnemies, transform);
         InvokeRepeating(nameof(spawnEnemy), spawnRate, spawnRate);
     }
     private void spawnEnemy()
     {
-        var spawnedEnemy = EnemyPool.Dequeue();
-        Vector2 position = (Vector2)(target != null ? target.position : transform.position) + Random.insideUnitCircle * Random.Range(minRadius, maxRadius);
-        spawnedEnemy.transform.position = position;
-        spawnedEnemy.gameObject.SetActive(true);
-        spawnedEnemy.onObjectSpawn();
-        EnemyPool.Enqueue(spawnedEnemy);
+        var spawnedEnemyGO = ObjectPooler.instance.GetNextInPool(nameof(EnemyPlaneController), true);
+        if (spawnedEnemyGO != null)
+        {
+            var spawnedEnemy = spawnedEnemyGO.GetComponent<EnemyPlaneController>();
+            Vector2 position = (Vector2)(target != null ? target.position : transform.position) + Random.insideUnitCircle * Random.Range(minRadius, maxRadius);
+            spawnedEnemy.transform.position = position;
+            spawnedEnemy.gameObject.SetActive(true);
+            spawnedEnemy.OnObjectSpawn();
+        }
     }
 }

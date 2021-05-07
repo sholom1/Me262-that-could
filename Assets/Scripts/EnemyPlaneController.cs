@@ -8,16 +8,31 @@ using System;
 public class EnemyPlaneController : PlaneController
 {
     [SerializeField] float _StoppingDistance;
+    [SerializeField] float _AttackRange;
     [SerializeField] float RotationSpeed = 20f;
+    [SerializeField] GunController gunController;
     private void Start()
     {
-        onObjectSpawn();
+        OnObjectSpawn();
     }
     // Start is called before the first frame update
-    public override void onObjectSpawn()
+    public override void OnObjectSpawn()
     {
-        base.onObjectSpawn();
+        base.OnObjectSpawn();
         _Thrust = _MaxThrustForce;
+    }
+    private void Update()
+    {
+        if (PlayerPlaneController.instance != null)
+        {
+            if (Vector2.Distance(PlayerPlaneController.instance.transform.position, transform.position) < _AttackRange)
+            {
+                Vector2 dir = (PlayerPlaneController.instance.transform.position - transform.position).normalized;
+                float angle = Vector2.Angle(transform.up, dir);
+                if (angle < 15f)
+                    gunController.Shoot("Player");
+            }
+        }
     }
     protected override void FixedUpdate()
     {
@@ -35,7 +50,7 @@ public class EnemyPlaneController : PlaneController
             dir += GetAvoidanceVector(neighbor, _StoppingDistance);
         }
         dir.Normalize();
-        Debug.DrawLine(transform.position, (Vector2)transform.position + dir * _StoppingDistance);
+        //Debug.DrawLine(transform.position, (Vector2)transform.position + dir * _StoppingDistance);
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
         float singleStep = RotationSpeed * Time.deltaTime;
         //Debug.Log($"angle:{angle} step:{singleStep}");
@@ -55,5 +70,19 @@ public class EnemyPlaneController : PlaneController
     private float DistanceBias(float distance, float maxDistance)
     {
         return (float)(-maxDistance * Math.Tanh((distance/maxDistance)-1));
+    }
+    private float AngleDiff(float a, float b)
+    {
+        float phi = Mathf.Abs(b - a) % 360;
+        return phi > 180f ? 360 - phi : phi;
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, PlayerPlaneController.instance.transform.position);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + transform.up * _StoppingDistance);
+        Vector2 dir = (PlayerPlaneController.instance.transform.position - transform.position).normalized;
+        Debug.Log($"angle: {Vector2.Angle(transform.up, dir)}");
     }
 }
