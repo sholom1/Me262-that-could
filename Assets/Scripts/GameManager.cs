@@ -101,6 +101,10 @@ public class GameManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(index));
         FindAndUpdateSettingsButton();
         SetLoadButtonListner(2);
+        if (index == 1)
+            DifficultyDropdown.interactable = true;
+        else
+            DifficultyDropdown.interactable = false;
         LoadingScreen.SetActive(false);
         persistentCamera.gameObject.SetActive(false);
     }
@@ -112,7 +116,9 @@ public class GameManager : MonoBehaviour
         {
             Button settingsButton = buttonList[0];
             settingsButton.onClick.RemoveAllListeners();
+            closeSettingsMenu.onClick.RemoveAllListeners();
             settingsButton.onClick.AddListener(() => settingsGO.SetActive(!settingsGO.activeInHierarchy));
+            closeSettingsMenu.onClick.AddListener(() => settingsGO.SetActive(!settingsGO.activeInHierarchy));
             var menu = GetAllObjectsOnlyInSceneWithTag<Transform>("Menu")?.FirstOrDefault();
             if (menu != null)
                 closeSettingsMenu.onClick.AddListener(() => menu.gameObject.SetActive(true));
