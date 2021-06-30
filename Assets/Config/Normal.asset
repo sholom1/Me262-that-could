@@ -15,3 +15,5 @@ MonoBehaviour:
   MaxEnemies: 20
   EnemyHealthIncrease: 1.2
   EnemyDamageIncrease: 1.02
+  ScoreMultiplier: 1
+  PlayerHealthMultiplier: 1
