@@ -14,6 +14,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject DebrisParticles;
 
+    public float damageMultiplier;
+
     private void OnEnable()
     {
         lifeTime = 0;
@@ -29,7 +31,7 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag(targetTag) && collision.TryGetComponent(out Health health))
         {
             Debug.Log($"Damaged {health.gameObject.name}");
-            health.Damage(damage);
+            health.Damage(Mathf.CeilToInt(damage * damageMultiplier));
             EffectsManager.instance.SpawnEffectAtPosition(transform.position, "HitImpact");
             gameObject.SetActive(false);
         }

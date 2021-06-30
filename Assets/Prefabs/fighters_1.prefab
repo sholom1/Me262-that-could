@@ -329,6 +329,7 @@ MonoBehaviour:
   _AttackRange: 15
   RotationSpeed: 60
   gunController: {fileID: 2852856541588533053}
+  deathReward: 10
 --- !u!114 &6084798096437798806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f3c448c44c7204b8b05301cbf9207b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
+  MaxHealth: 4
   CurrentHealth: 0
   destroy: 0
   OnDeath:
@@ -366,6 +367,7 @@ MonoBehaviour:
   _Barrels:
   - Muzzle: {fileID: 4250894395465290672}
     Cooldown: 0
+  DamageMultiplier: 1
 --- !u!50 &4697747129587815945
 Rigidbody2D:
   serializedVersion: 4

@@ -14,6 +14,7 @@ public class GunController : MonoBehaviour
     private AudioClip _GunShot;
     [SerializeField]
     protected GunBarrel[] _Barrels;
+    public float DamageMultiplier;
 
     private new Rigidbody2D rigidbody;
     private AudioSource audioSource;
@@ -49,6 +50,7 @@ public class GunController : MonoBehaviour
                 spawnedBullet.rigidbody.velocity = rigidbody.velocity;
                 spawnedBullet.rigidbody.AddForce(spawnedBullet.transform.up * _Force);
                 spawnedBullet.targetTag = tag;
+                spawnedBullet.damageMultiplier = DamageMultiplier;
                 barrel.Cooldown = _Cooldown;
                 audioSource.PlayOneShot(_GunShot, Random.Range(.5f, 1f));
             }

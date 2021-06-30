@@ -9,4 +9,6 @@ public class DifficultySettingsSO : ScriptableObject
     public float EnemyHealthIncrease;
     [Range(1, 2)]
     public float EnemyDamageIncrease;
+    public float ScoreMultiplier;
+    public float PlayerHealthMultiplier;
 }

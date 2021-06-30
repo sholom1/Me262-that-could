@@ -6,19 +6,26 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField]
-    private int MaxHealth;
+    protected int MaxHealth;
     [SerializeField]
-    private int CurrentHealth;
+    protected int CurrentHealth;
     [SerializeField]
     private bool destroy;
+    private int startingHealth;
     public UnityEvent OnDeath;
     // Start is called before the first frame update
     void Start()
     {
+        startingHealth = MaxHealth;
         CurrentHealth = MaxHealth;        
     }
-
-    public void Damage(int amount)
+    public void AdjustHealthRange(float factor)
+    {
+        MaxHealth = Mathf.CeilToInt(MaxHealth * factor);
+        if (startingHealth > MaxHealth)
+            startingHealth = MaxHealth;
+    }
+    public virtual void Damage(int amount)
     {
         CurrentHealth -= amount;
         if (CurrentHealth <= 0)
@@ -32,7 +39,6 @@ public class Health : MonoBehaviour
     }
     public void Respawn()
     {
-        CurrentHealth = MaxHealth;
-        OnDeath.RemoveAllListeners();
+        CurrentHealth = Random.Range(startingHealth, MaxHealth);
     }
 }

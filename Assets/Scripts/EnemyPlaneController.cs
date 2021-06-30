@@ -11,8 +11,18 @@ public class EnemyPlaneController : PlaneController
     [SerializeField] float _AttackRange;
     [SerializeField] float RotationSpeed = 20f;
     [SerializeField] GunController gunController;
-    private void Start()
+    [SerializeField] int deathReward = 10;
+    public override void Awake()
     {
+        base.Awake();
+        ScoreManager.instance.OnDifficultyIncrease.AddListener(factor =>
+        {
+            DifficultySettingsSO difficulty = GameManager.instance.SelectedDifficulty;
+            float healthScalar = Mathf.Pow(difficulty.EnemyHealthIncrease, factor);
+            health.AdjustHealthRange(healthScalar);
+            gunController.DamageMultiplier = Mathf.Pow(difficulty.EnemyDamageIncrease, factor);
+        });
+        health.OnDeath.AddListener(() => ScoreManager.instance.AddScore(deathReward));
         OnObjectSpawn();
     }
     // Start is called before the first frame update

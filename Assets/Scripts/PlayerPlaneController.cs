@@ -5,11 +5,6 @@ using UnityEngine;
 public class PlayerPlaneController : PlaneController
 {
     public static PlayerPlaneController instance;
-    private void Awake()
-    {
-        if (instance != null) Destroy(instance);
-        instance = this;
-    }
     
     [SerializeField]
     private float _Acceleration;
@@ -18,8 +13,14 @@ public class PlayerPlaneController : PlaneController
 
     private PlayerInput.PlayerActions input;
 
-    protected void Start()
+    public override void Awake()
     {
+        if (instance != null) Destroy(instance);
+        instance = this;
+        base.Awake();
+        health.Damage(0);
+        health.AdjustHealthRange(GameManager.instance.SelectedDifficulty.PlayerHealthMultiplier);
+        health.OnDeath.AddListener(() => ScoreManager.instance.ScoreWindow.SetActive(true));
         OnObjectSpawn();
         input = new PlayerInput().Player;
         input.Enable();

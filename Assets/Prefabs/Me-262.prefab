@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8241182161355796483}
   - component: {fileID: 8241182161355796482}
   - component: {fileID: 1159627934}
-  - component: {fileID: 1884455244}
+  - component: {fileID: 4831879964286213562}
   m_Layer: 0
   m_Name: Me-262
   m_TagString: Player
@@ -220,12 +220,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _BulletPrefab: {fileID: -7740159756175003801, guid: 5b29093d3e3ad8c4eaef88f28e937582, type: 3}
   _Force: 500
-  _Cooldown: 0.5
+  _Cooldown: 0.1
   _GunShot: {fileID: 8300000, guid: e908a9fafe49d404fb50ec447c417c6a, type: 3}
   _Barrels:
   - Muzzle: {fileID: 1319008189}
     Cooldown: 0
---- !u!114 &1884455244
+  DamageMultiplier: 1
+--- !u!114 &4831879964286213562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,15 +235,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8241182161355796542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9f3c448c44c7204b8b05301cbf9207b, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c13fd837fedcea47891312380a4c306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1000
-  CurrentHealth: 0
+  MaxHealth: 100
+  CurrentHealth: 100
   destroy: 0
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  healthText: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!1 &8241182161558471425
 GameObject:
   m_ObjectHideFlags: 0
